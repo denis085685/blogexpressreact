@@ -1,11 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
-import { registerValidation, loginValidation } from "./validations.js";
+import { registerValidation, loginValidation, postCreateValidation } from "./validations.js";
 import checkAuth from "./utils/checkAuth.js";
 import mytestMiddleware from "./utils/mytestMiddleware.js";
 import newMiddleWareAsync from "./utils/newMiddleWareAsync.js";
 import { register, login, getMe } from "./controllers/UserController.js";
 import * as UserController from './controllers/UserController.js';
+import * as PostController from './controllers/PostController.js';
 
 const app = express();
 app.use(express.json());
@@ -24,6 +25,12 @@ mongoose
 app.post("/auth/register", registerValidation, UserController.register);
 app.post("/auth/login", loginValidation,login);
 app.get('/auth/me', checkAuth, getMe)
+
+app.get('/posts', PostController.getAll);
+app.get('/posts/:id', PostController.getOne);
+app.post('/posts', checkAuth ,postCreateValidation,PostController.create);
+// app.delete('/posts', PostController.remove);
+// app.patch('/posts', PostController.update);
 
 
 

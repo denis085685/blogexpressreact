@@ -8,8 +8,7 @@ const PostSchema = new mongoose.Schema(
     },
     text: {
       type: String,
-      required: true,
-      unique: true,
+      required: true
     },
     tags: {
       type: Array,
@@ -21,8 +20,9 @@ const PostSchema = new mongoose.Schema(
     },
     imageUrl: String,
     user:{
-        type: String,
-        required: true // 1:26:35
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
   },
   {
@@ -30,4 +30,4 @@ const PostSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("User", PostSchema);
+export default mongoose.model("Post", PostSchema);
